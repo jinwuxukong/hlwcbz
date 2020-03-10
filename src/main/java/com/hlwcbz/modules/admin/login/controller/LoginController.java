@@ -8,8 +8,10 @@ import com.hlwcbz.modules.admin.login.service.LoginService;
 import com.hlwcbz.modules.admin.login.dto.UserInfo;
 import com.hlwcbz.modules.admin.upms.entity.Organization;
 import com.hlwcbz.modules.admin.upms.service.OrganizationService;
+import com.hlwcbz.modules.common.entity.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,13 @@ public class LoginController {
     LoginService loginService;
     @Autowired
     OrganizationService organizationService;
+
+    @AuthIgnore
+    @ApiOperation("注册")
+    @PostMapping("register")
+    public R register(@ApiParam("注册对象") @RequestBody User user) {
+        return loginService.register(user);
+    }
 
     @ApiOperation("登录接口")
     @AuthIgnore
@@ -72,6 +81,7 @@ public class LoginController {
     }
 
     @ApiOperation("退出登录")
+    @AuthIgnore
     @GetMapping("logout")
     public R logout() {
         System.out.println("456");

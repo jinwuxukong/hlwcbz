@@ -2,6 +2,7 @@ package com.hlwcbz.modules.admin.login.service;
 
 
 import com.hlwcbz.common.entity.R;
+import com.hlwcbz.modules.common.entity.User;
 
 import java.util.List;
 
@@ -39,4 +40,11 @@ public interface LoginService {
      * 更新角色权限
      */
     boolean updateRolePermission(Integer[] permissionIds, Integer roleId);
+
+    /**
+     * 注册用户
+     * @param user
+     * @return
+     */
+    R register(User user);
 }

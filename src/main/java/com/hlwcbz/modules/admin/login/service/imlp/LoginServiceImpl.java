@@ -10,6 +10,7 @@ import com.hlwcbz.common.util.CacheUtils;
 import com.hlwcbz.common.util.JwtUtils;
 import com.hlwcbz.common.util.TreeUtil;
 import com.hlwcbz.modules.admin.login.service.LoginService;
+import com.hlwcbz.modules.admin.upms.service.UserService;
 import com.hlwcbz.modules.admin.upms.vo.PermissionTreeNode;
 import com.hlwcbz.modules.admin.upms.entity.*;
 import com.hlwcbz.modules.admin.upms.mapper.*;
@@ -18,6 +19,7 @@ import com.hlwcbz.modules.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,6 +38,8 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
+    private UserService userService;
+    @Autowired
     private UserRoleMapper userRoleMapper;
     @Autowired
     private UserPermissionMapper usePermissionMapper;
@@ -45,20 +49,31 @@ public class LoginServiceImpl implements LoginService {
     private RolePermissionMapper rolePermissionMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public R register(User user) {
+        if(!StringUtils.isEmpty(userMapper.selectOne(new QueryWrapper<User>().eq("account",user.getAccount())))){
+            return R.error(ResultCode.USERNAME_ALREADY_EXIST);
+        }
+        user.setNickName(user.getAccount());
+        if(!userService.saveUser(user)){
+            throw new RuntimeException();
+        }
+        return R.ok();
+    }
+
+    @Override
     @OperationLog(value = "登录后台", type = OperateEnum.SELECT, module = "com.hlwcbz.modules.login")
     public R login(String username, String password) {
-        List<User> list = userMapper.selectList(new QueryWrapper<User>().eq("name", username));
-        User user = (list != null && list.size() == 1) ? list.get(0) : null;
+        User user = userService.getOne(new QueryWrapper<User>().eq("account", username));
         CallerInfo callerInfo = new CallerInfo();
         String token;
         if (user == null || !user.getPass().equals(password)) {
             return R.error(ResultCode.USERNAME_OR_PASS_ERROR);
         } else {
             callerInfo.uid = user.getId();
-            callerInfo.name = user.getName();
-            callerInfo.nick = user.getNick();
+            callerInfo.name = user.getAccount();
+            callerInfo.nick = user.getNickName();
             callerInfo.type = user.getType();
-            callerInfo.tenantId = user.getOrgId();
             token = JwtUtils.createToken(callerInfo);
             CacheUtils.userCache.put(user.getId().toString(),token);
         }

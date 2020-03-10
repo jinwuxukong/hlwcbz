@@ -20,7 +20,7 @@ swagger:
   authorization:
     key-name: token
   version: 1.0.0
-  base-package: com.hutu.modules
+  base-package: com.hlwcbz.modules
   base-path: /**
   exclude-path: /error, /ops/**
 # 日志

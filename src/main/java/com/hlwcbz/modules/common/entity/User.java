@@ -1,149 +1,135 @@
 package com.hlwcbz.modules.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-
 import java.time.LocalDate;
-
-import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
-
 import java.io.Serializable;
 
-import lombok.Data;
+import com.baomidou.mybatisplus.annotation.Version;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.jboss.logging.Field;
 
 /**
  * <p>
- * 系统用户表
+ * 
  * </p>
  *
  * @author generator
- * @since 2019-08-20
+ * @since 2020-03-10
  */
-@Data
+@Getter
+@Setter
 @Accessors(chain = true)
-@TableName("t_upms_user")
+@ApiModel("")
+@TableName("t_user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
     /**
-     * 用户名
+     * 主键
      */
-    private String name;
+	@ApiModelProperty("主键")
+	private Integer id;
+    /**
+     * 账号
+     */
+	@ApiModelProperty("账号")
+	private String account;
+    /**
+     * 账号
+     */
+	@ApiModelProperty("账号")
+	private Integer name;
     /**
      * 密码
      */
-    private String pass;
+	@ApiModelProperty("密码")
+	private String pass;
     /**
-     * 昵称姓名,本系统真实姓名
+     * 昵称
      */
-    private String nick;
-    /**
-     * 头像
-     */
-    private String avatar;
-    /**
-     * 用户类型（0管理员，1专家，2会员医生）
-     */
-    private Integer type;
-    /**
-     * 用户类型（0管理员，1专家，2会员医生）
-     */
-    private String typeShow;
-    /**
-     * 邮箱
-     */
-    private String email;
-    /**
-     * 手机号
-     */
-    private String phone;
-    /**
-     * 性别(男：0，女：1)
-     */
-    private Integer sex;
-    /**
-     * 性别展示
-     */
-    private String sexShow;
-    /**
-     * 用户状态（1=正常，0=禁用）
-     */
-    private Integer status;
-    /**
-     * 状态展示
-     */
-    private String statusShow;
-    /**
-     * 排序
-     */
-    private Integer orders;
+	@ApiModelProperty("昵称")
+	private String nickName;
     /**
      * 生日
      */
-    private LocalDate birthday;
-//    /**
-//     * 所在部门
-//     */
-//    private String departmentId;
-//    /**
-//     * 部门名字
-//     */
-//    private String departmentName;
+	@ApiModelProperty("生日")
+	private LocalDate birthday;
+    /**
+     * 类型（1管理员，2用户）
+     */
+	@ApiModelProperty("类型（1管理员，2用户）")
+	private Integer type;
+    /**
+     * 1.男2.女
+     */
+	@ApiModelProperty("1.男2.女")
+	private Integer sex;
+    /**
+     * 头像
+     */
+	@ApiModelProperty("头像")
+	private String headPortrait;
+	/**
+	 * 手机号
+	 */
+	@ApiModelProperty("手机号")
+	private String phone;
 
-    @TableField(exist = false)
-    private Integer[] roles;
+	@TableField(exist = false)
+	private Integer[] roles;
     /**
      * 创建人名称
      */
-    @TableField(fill = FieldFill.INSERT)
-    private String createName;
+	@TableField(fill = FieldFill.INSERT)
+	@ApiModelProperty("创建人名称")
+	private String createName;
     /**
      * 创建人ID
      */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer createId;
+	@TableField(fill = FieldFill.INSERT)
+	@ApiModelProperty("创建人ID")
+	private Integer createId;
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+	@TableField(fill = FieldFill.INSERT)
+	@ApiModelProperty("创建时间")
+	private LocalDateTime createTime;
     /**
      * 更新人名称
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String updateName;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	@ApiModelProperty("更新人名称")
+	private String updateName;
     /**
      * 更新人ID
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Integer updateId;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	@ApiModelProperty("更新人ID")
+	private Integer updateId;
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+	@TableField(fill = FieldFill.INSERT_UPDATE)
+	@ApiModelProperty("更新时间")
+	private LocalDateTime updateTime;
     /**
      * 逻辑删除标记(已删除：1，未删除：0)
      */
+	@ApiModelProperty("逻辑删除标记(已删除：1，未删除：0)")
     @TableLogic
-    private Integer isDeleted;
-    /**
-     * 医院名称
-     */
-    private String orgName;
-    /**
-     * 组织Id
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer orgId;
+	private Boolean isDeleted;
+	@ApiModelProperty("")
+	private Integer ordId;
+
+
 }
