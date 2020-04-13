@@ -4,7 +4,7 @@ server:
   uri-encoding: UTF-8
   max-threads: 1000
   min-spare-threads: 30
- port: 8083
+ port: 8082
  connection-timeout: 5000ms
 #https:
 #  port: 8443
@@ -18,7 +18,7 @@ spring:
  profiles:
   active: dev
  application:
-  name: bee-cloud-java
+  name: hlwcbz-java
  servlet:
   multipart:
    max-file-size: 100MB

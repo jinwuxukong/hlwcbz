@@ -34,6 +34,7 @@
         <weixin-java-mp.version>3.5.0</weixin-java-mp.version>
         <qiniu.version>7.2.25</qiniu.version>
         <netty-socketio.version>1.7.16</netty-socketio.version>
+        <cxf.version>3.2.1</cxf.version>
     </properties>
 
     <dependencies>
@@ -151,6 +152,33 @@
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>${zxing.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.xml.rpc/javax.xml.rpc-api -->
+        <dependency>
+            <groupId>javax.xml.rpc</groupId>
+            <artifactId>javax.xml.rpc-api</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.axis/axis -->
+        <dependency>
+            <groupId>org.apache.axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <!-- CXF webservice -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>asm</artifactId>
+                    <groupId>org.ow2.asm</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
